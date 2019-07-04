@@ -1,19 +1,30 @@
 {
   "name": "vuetify-extended-form",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "serve": "vue-cli-service serve ./example/main.js",
+    "build": "vue-cli-service build --name vx-form --entry ./src/index.js --target lib",
+    "prepublishOnly": "npm run lint && npm run build && npm run styleguide:build && npm run doc:build",
+    "styleguide": "vue-styleguidist server",
+    "styleguide:build": "vue-styleguidist build",
+    "doc:build": "npx vuedoc.md --section API --output ./README.md ./src/components/VxForm.vue"
   },
   "dependencies": {
-    "vue": "^2.5.17"
+    "vue": "^2.5.17",
+    "vuetify": "^1.2.7"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.1",
     "@vue/cli-plugin-eslint": "^3.0.1",
     "@vue/cli-service": "^3.0.1",
+    "@vuedoc/md": "^1.3.3",
+    "babel-plugin-transform-imports": "^1.5.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
+    "vue-cli-plugin-component": "^1.7.1",
+    "vue-styleguidist": "^1.7.13",
     "vue-template-compiler": "^2.5.17"
   },
   "eslintConfig": {
@@ -39,5 +50,22 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "main": "dist/vx-form.umd.js",
+  "module": "dist/vx-form.common.min.js",
+  "files": [
+    "dist/*.css",
+    "dist/*.map",
+    "dist/*.js",
+    "src/*"
+  ],
+  "keywords": [
+    "vue",
+    "component"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "vuetify": "^1.2.7",
+    "lodash": "^4.17.11"
+  }
 }
